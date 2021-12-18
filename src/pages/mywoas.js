@@ -18,27 +18,27 @@ const MyWoas = () => {
     const purchasedWoaData=[
         {
             Name:"Avax Apa",
-            Code:"0000",
+            Id:"0000",
             Url:PicPurple
         },
         {
             Name:"Popax Apa",
-            Code:"0001",
+            Id:"0001",
             Url:PicRed
         },
         {
             Name:"Novax Apa",
-            Code:"0002",
+            Id:"0002",
             Url:PicYellow
         },
         {
             Name:"Chipax Apa",
-            Code:"0003",
+            Id:"0003",
             Url:PicGreen
         },
         {
             Name:"Bvax Apa",
-            Code:"0004",
+            Id:"0004",
             Url:PicGray
         },
     ]
@@ -46,7 +46,6 @@ const MyWoas = () => {
     const [currentWoa,setCurrentWoa]=useState({})
     
     useEffect(()=>{
-        console.log(purchasedWoaData.length)
             },[currentWoa])
         
     return (

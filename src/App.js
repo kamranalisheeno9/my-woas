@@ -1,6 +1,7 @@
 import './App.css';
 import Home from './pages/home'
 import MyWoas from './pages/mywoas'
+import Market from './pages/market'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 function App() {
   return (
@@ -13,6 +14,9 @@ function App() {
         <Route
           path="/mywoa"
           element={<MyWoas />} />
+        <Route
+          path="/market"
+          element={<Market />} />
         </Routes>
         </Router>
       

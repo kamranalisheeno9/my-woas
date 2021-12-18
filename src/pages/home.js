@@ -11,6 +11,7 @@ import PicRed from '../assets/images/picred.png'
 import PicGreen from '../assets/images/picgreen.png'
 import PicGray from '../assets/images/picgray.png'
 import PicPurple from '../assets/images/picpurple.png'
+import RarityImg from '../assets/images/rarityimg.png'
 import { Slide, Zoom } from "react-awesome-reveal";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState } from 'react';
@@ -120,16 +121,30 @@ const Home = () => {
             </div>
             <div className='mint-page-container'>
                 <Container className='mb-50'>
-                    <Row>
-                        <Col md={10}>
-                            <Slide direction="up" duration={200}  >
+       
+                    <Row className='justify-content-between'>
+                        <Col md={6}>
+                        <Slide direction="up" duration={200}  >
 
-                                <h1 className='rarity-header'>RARITY RANKING </h1>
-                            </Slide>
-                            <Slide direction='left' duration={200}  >
+<h1 className='rarity-header'>RARITY RANKING </h1>
+</Slide>
+<Slide direction='left' duration={200}  >
 
-                                <p className='rarity-text'>In the Wolf’s Lair we have no dress code. All are welcome, and our amenities are top notch.  Our Wolf’s of AVAX come in different fur colors, suits, and stylish accessories.  We used a 5-tier scale to rank the Wolf’s of AVAX. </p>
-                            </Slide>
+<p className='rarity-text'>In the Wolf’s Lair we have no dress code. All are welcome, and our amenities are top notch.  Our Wolf’s of AVAX come in different fur colors, suits, and stylish accessories.  We used a 5-tier scale to rank the Wolf’s of AVAX. </p>
+</Slide>
+<Slide direction='left' cascade duration={200}  >
+
+<p className='rarity-text'>Tiers:</p>
+<h4 className='green'>1. Common</h4>
+<h4 className='blue'>2. Rare</h4>
+<h4 className='red'>3. Ledendary</h4>
+<h4 className='purple'>4. Super Rare</h4>
+<h4 className='yellow'>5. Iconic</h4>
+</Slide>
+
+                        </Col>
+                        <Col md={5} className='rarity-img'>
+                            <img src={RarityImg} alt='' />
                         </Col>
 
                     </Row>

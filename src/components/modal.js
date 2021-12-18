@@ -22,7 +22,7 @@ function MyVerticallyCenteredModal(props) {
                   <Col sm={6}>
             <Slide direction='right' duration={600}>
 
-                        <h1 className='modal-name-code'>{props.Woa.Name} {props.Woa.Code}</h1>
+                        <h1 className='modal-name-code'>{props.Woa.Name} {props.Woa.Id}</h1>
                </Slide>
                   </Col>
               </Row>  

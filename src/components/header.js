@@ -38,7 +38,7 @@ const Header = () => {
                         {navLinks.map((nav, index) => {
                             return (
                                 <li key={index}  >
-                                    <Link to={nav.link}  class={activeIndex == index ? "cool-link active" : "cool-link"} onClick={() => setActiveIndex(index)} >
+                                    <Link to={nav.link}  class={activeIndex === index ? "cool-link active" : "cool-link"} onClick={() => setActiveIndex(index)} >
                                         {nav.name}
                                     </Link>
                                 </li>
