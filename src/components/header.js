@@ -16,7 +16,7 @@ const Header = () => {
         {name:"My Woa",
         link:"/mywoa"},
         {name:"Market",
-        link:"/"}
+        link:"/market"}
     ]
     const [activeIndex, setActiveIndex] = useState(-1)
     return (

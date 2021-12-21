@@ -2,118 +2,344 @@ import './market.css';
 import { useEffect, useState } from 'react';
 import Header from '../components/header'
 import Footer from '../components/footer'
-import { Row, Col, Container, Accordion } from 'react-bootstrap';
+import { Row, Col, Container, Form, Dropdown, DropdownButton } from 'react-bootstrap';
 import PicBlue from '../assets/images/picblue.png'
 import PicYellow from '../assets/images/picyellow.png'
 import PicRed from '../assets/images/picred.png'
 import PicGreen from '../assets/images/picgreen.png'
 import PicGray from '../assets/images/picgray.png'
 import PicPurple from '../assets/images/picpurple.png'
-import Modal from '../components/modal'
+import Modal from '../components/ModalMarket'
 import { Slide, Zoom } from "react-awesome-reveal";
 import 'bootstrap/dist/css/bootstrap.min.css';
-const Market = () => {
-    const [modalShow, setModalShow] = useState(false);
+import React, { Component } from 'react'
+import Select from 'react-select'
 
-    const purchasedWoaData=[
+const Market = () => {
+
+    const Rarity = ["common", "rare", "super rare", "legendary", "iconic",]
+    const Base = ["silver", "brown", "dark gray", "gold"]
+    const Background = ["yellow", "yellow orange", "red brown", "purple", "pink", "pink purple", "light blue", " grey", " green", "black white"]
+    const Accessory = ["none", "silver chain", "gold chain"]
+    const Body = ["yellow suspenders", "yellow soccer jeeb", " yellow shirt", " yellow purple robe", " yellow purple jacket", "white suspenders", "white black soccer jeeb", "tan suspenders", "sky blue shirt", "sky blue suspender", "silver suit camouflage", "silver robe", "silver black suit", "royal blue suspenders", "red white tux", "red tie checkered suit", "red suspenders", "red skeleton", "red gold robe", "red gold emperor", "red blue suit", "red blue emperor", "red black samurai", "red black basketball jersey", "red basketball jersey", "purple yellow emperor", "purple suspenders", "purple blue shirt", "pink tan robe", "pink robe", "none", "light grey robot", "light blue suit", "lavender shirt", "grey suspenders", "grey suit camouflage", "grey red emperor", "grey jacket", "grey blue suit", "grey black samurai", "gray purple robe", "dark gray shirt", "dark blue tux", "checkered suit", "brown red samurai", "brown red jacket", "brown jacket", "brown grey suit", "blue tux", "blue soccer jeeb", "blue skeleton", "blue robe", "blue red suit", "blue jacket", "blue grey suspenders", "blue grey samurai", "blue gold robot", "blue gold emperor", "blue dark blue emperor", "black yellow samurai", "black white tux", "black white tux", "black white soccer jeeb", "black suspenders", "black skeleton", "black gold robe"]
+    const Eyes = ["yellow black frame eyeglasses", "tan sunglasses", "sunglasses yellow", "red sunglasses", "red eyeglasses", "none", "eyepatch", "blue sunglasses", "blue eyeglasses", "black yellow ski", "black yellow frame eyeglasses", "black white ski", "black sunglasses", "black ski", "black red ski", "black rainbow ski", "black purple ski", "black green ski", "black eyeglasses", "black blue ski"]
+    const Earing = ["white diamond", "silver hoop", "red hoop", "purple diamond", "none", "light green diamond", "green diamond", "gold hoop", "blue hue diamond", "blue hoop", "black hoop"]
+    const Hand = ["skull", "scepter", "red spear", "rabbit", "none", "microphone", "liquor", "gun, cigar", "champagne, cash", "blue spear "]
+    const Head = ["viking", "tan golf visor", "silver camouflage golf visor", "silver camouflage baseball cap", "red golf visor", "orange golf visor", "none", "light gray golf visor", "green golf visor", "green camouflage golf visor", "green camouflage baseball cap", "gold golf visor", "crown", "brown baseball cap", "blue golf visor", "blue camouflage baseball cap", "blue baseball cap", "black yellow baseball cap", "black golf visor"]
+    const Wing = ["White", "silver", "none", "gold"]
+
+
+    const MarketData = [
+
         {
-            Name:"Avax Apa",
-            Code:"0000",
-            Url:PicPurple
+            name: "Apax",
+            id: "123",
+            rarity: "common",
+            base: "silver",
+            background: "purple",
+            accessory: "silver chain",
+            body: "yellow suspenders",
+            eyes: "tan sunglasses",
+            earings: "red hoop",
+            hand: "red spear",
+            head: "brown baseball cap",
+            wing: "none",
+            value: "2.31",
+            price: 200,
+            url: PicPurple
         },
         {
-            Name:"Popax Apa",
-            Code:"0001",
-            Url:PicRed
+            name: "Bpax",
+            id: "242",
+            rarity: "rare",
+            base: "silver",
+            background: "blue",
+            accessory: "none",
+            body: "blue tux",
+            eyes: "black yellow frame eyeglasses",
+            earings: "silver diamond",
+            hand: "gun",
+            head: "none",
+            wing: "silver",
+            value: "2.31",
+            price: 100,
+            url: PicBlue
         },
-        {
-            Name:"Novax Apa",
-            Code:"0002",
-            Url:PicYellow
-        },
-        {
-            Name:"Chipax Apa",
-            Code:"0003",
-            Url:PicGreen
-        },
-        {
-            Name:"Bvax Apa",
-            Code:"0004",
-            Url:PicGray
-        },
-        {
-            Name:"Rivax Apa",
-            Code:"0005",
-            Url:PicBlue
-        },
+
     ]
 
-    const [currentWoa,setCurrentWoa]=useState({})
-    
+    const [modalShow, setModalShow] = useState(false);
+    const [currentWoa, setCurrentWoa] = useState({})
+    const [dataSort, setDataSort] = useState(MarketData)
+    const sortPriceHigh = () => {
+        const sorted = MarketData.sort((a, b) => a.price - b.price)
+        setDataSort(sorted)
+    }
+    const sortPriceLow = () => {
+        const sorted = MarketData.sort((a, b) => b.price - a.price)
+        setDataSort(sorted)
+    }
+
+    const sortRarityHigh = () => {
+        const sorted = MarketData.sort((a, b) => a.rarity - b.rarity)
+        setDataSort(sorted)
+    }
+    const sortRarityLow = () => {
+        const sorted = MarketData.sort((a, b) => b.rarity - a.rarity)
+        setDataSort(sorted)
+    }
+
     useEffect(()=>{
-        console.log(purchasedWoaData.length)
-            },[currentWoa])
-        
+        setDataSort(dataSort)
+    },[])
+
     return (
         <div className='mywoas-container'>
             <Header />
             <Container>
-            <Row className='justify-content-between my-woa-row'>
-            <Col md={6}>
-            <Slide direction='left' duration={200}  cascade >
 
-            <h1 className='my-woas-header'>My Woas</h1>
-            <button type='button' className='user-transection' >VIEW USER TRANSACTIONS</button>
-</Slide>         
-            </Col>
-            <Col className='my-woa-buttons' md={6}>
-                <Slide direction='right' duration={200} delay={300} cascade >
+                <Slide duration={200} direction='up' cascade >
+                    <Row className='justify-content-center my-woa-row mt-5'>
 
-                <div className='mb-3'>
-                <h6 className='woa-btn-header'>Mint Rewards</h6>
-                <div className='woa-btn'>--<span><img width="20px" src='https://partyanimals.xyz/static/media/avax.234db155.svg' alt='' /></span><button type="button" className='claim-btn'>Claim</button><span></span></div>
-                </div>
-                <div className='mb-3'>
-                <h6 className='woa-btn-header'>Royalty Rewards</h6>
-                <div className='woa-btn'>--<span><img width="20px" src='https://partyanimals.xyz/static/media/avax.234db155.svg' alt='' /></span><button type="button" className='claim-btn'>Claim</button><span></span></div>
-                </div>
-                <div className='mb-3'>
-                <h6 className='woa-btn-header'>Avax Validator Reward</h6>
-                <div className='woa-btn'>--<span><img width="20px" src='https://partyanimals.xyz/static/media/avax.234db155.svg' alt='' /></span><button type="button" className='claim-btn'>Claim</button><span></span></div>
-                </div>
-                <div className='mb-3'>
-                <h6 className='woa-btn-header'>PNG Reward</h6>
-                <div className='woa-btn'>--<span><img width="20px" src='https://partyanimals.xyz/static/media/avax.234db155.svg' alt='' /></span><button type="button" className='claim-btn'>Claim</button><span></span></div>
-                </div>
+                        <Col xs={5} md={2}>
+                            <h5>Total Volume</h5>
+                            <p className='value-total'>44249.3446</p>
+
+                        </Col>
+
+                        <Col xs={5} md={2}>
+                            <h5>Total Sales</h5>
+                            <p className='value-total'>44249.3446</p>
+
+                        </Col>
+
+                        <Col xs={5} md={2}>
+                            <h5>Highest Sale Price  </h5>
+                            <p className='value-total'>44249.3446</p>
+
+                        </Col>
+
+                        <Col xs={5} md={2}>
+                            <h5>Total Sales</h5>
+                            <p className='value-total'>44249.3446</p>
+
+                        </Col>
+                    </Row>
                 </Slide>
-        
-            </Col>
-             
-            </Row>
-            <Modal
-            show={modalShow}
-            onHide={() => setModalShow(false)}
-            Woa={currentWoa}
-            />
-            <Zoom duration={200} direction='up' >
+                <Modal
+                    show={modalShow}
+                    onHide={() => setModalShow(false)}
+                    Woa={currentWoa}
+                />
+                <Zoom duration={200} direction='up' >
 
-            <div className='my-woas-header-small '>Purchased Woas</div>
-            </Zoom>
-            <Row className='justify-content-between my-woa-row-purchased'>
-                {purchasedWoaData.map((woa,index)=>{
-                    return(
-             <Col key="index" lg={2} md={4} sm={4} xs={6} className='mt-4 mb-2'>
-                 <Slide duration={200} direction='up' cascade>
+                    <h4 className='floor-price  mt-5'>Floor Price</h4>
+                    <Row className='justify-content-center my-woa-row  mt-3 floor'>
+                        <Col xs={5} md={2} lg={1}>
+                            <h6 className='green'>Common</h6>
+                            <p className='value-total-small'>2.3  <span><img width="17px" src='https://partyanimals.xyz/static/media/avax.234db155.svg' alt='' /></span></p>
 
-                 <img onClick={() => setModalShow(true) || setCurrentWoa(woa)} className='purchased-woa' src={woa.Url} alt='' />
-                 </Slide>
-             
-             </Col>
+                        </Col>
 
-                    )
-                })}
-             
-            </Row>
+                        <Col xs={5} md={2} lg={1}>
+                            <h6 className='blue'>Rare</h6>
+                            <p className='value-total-small'>3.5  <span><img width="17px" src='https://partyanimals.xyz/static/media/avax.234db155.svg' alt='' /></span></p>
+
+                        </Col>
+
+                        <Col xs={5} md={2} lg={1}>
+                            <h6 className='red'>Ledendary</h6>
+                            <p className='value-total-small'>6  <span><img width="17px" src='https://partyanimals.xyz/static/media/avax.234db155.svg' alt='' /></span></p>
+
+                        </Col>
+
+                        <Col xs={5} md={2} lg={1}>
+                            <h6 className='purple'>Super Rare </h6>
+                            <p className='value-total-small'>18 <span><img width="17px" src='https://partyanimals.xyz/static/media/avax.234db155.svg' alt='' /></span></p>
+
+                        </Col>
+
+
+                        <Col xs={5} md={2} lg={1}>
+                            <h6 className='yellow'>Iconic</h6>
+                            <p className='value-total-small'>1000 <span><img width="17px" src='https://partyanimals.xyz/static/media/avax.234db155.svg' alt='' /></span></p>
+
+                        </Col>
+
+                    </Row>
+                </Zoom>
+                <Zoom duration={200} direction='up' >
+                    <Row className='justify-content-center filter-dropdown'>
+                        <Col className='mt-3 mb-3' xs={10} sm={6} md={4} lg={2}>
+                            <Form.Select aria-label="Default select example">
+                                <option>Select Rarity</option>
+                                {Rarity.map((inputVal, index) => {
+                                    return (
+                                        <option key={index} value={inputVal}>{inputVal}</option>
+
+                                    )
+                                })}
+                            </Form.Select>
+                        </Col>
+
+                        <Col className='mt-3 mb-3' xs={10} sm={6} md={4} lg={2}>
+                            <Form.Select aria-label="Default select example">
+                                <option>Select Base</option>
+                                {Base.map((inputVal, index) => {
+                                    return (
+                                        <option key={index} value={inputVal}>{inputVal}</option>
+
+                                    )
+                                })}
+                            </Form.Select>
+                        </Col>
+
+                        <Col className='mt-3 mb-3' xs={10} sm={6} md={4} lg={2}>
+                            <Form.Select aria-label="Default select example">
+                                <option>Select Background</option>
+                                {Background.map((inputVal, index) => {
+                                    return (
+                                        <option key={index} value={inputVal}>{inputVal}</option>
+
+                                    )
+                                })}
+                            </Form.Select>
+                        </Col>
+
+                        <Col className='mt-3 mb-3' xs={10} sm={6} md={4} lg={2}>
+                            <Form.Select aria-label="Default select example">
+                                <option>Select Accessory</option>
+                                {Accessory.map((inputVal, index) => {
+                                    return (
+                                        <option key={index} value={inputVal}>{inputVal}</option>
+
+                                    )
+                                })}
+                            </Form.Select>
+                        </Col>
+
+                        <Col className='mt-3 mb-3' xs={10} sm={6} md={4} lg={2}>
+                            <Form.Select aria-label="Default select example">
+                                <option>Select Body</option>
+                                {Body.map((inputVal, index) => {
+                                    return (
+                                        <option key={index} value={inputVal}>{inputVal}</option>
+
+                                    )
+                                })}
+                            </Form.Select>
+                        </Col>
+
+                        <Col className='mt-3 mb-3' xs={10} sm={6} md={4} lg={2}>
+                            <Form.Select aria-label="Default select example">
+                                <option>Select Eyes</option>
+                                {Eyes.map((inputVal, index) => {
+                                    return (
+                                        <option key={index} value={inputVal}>{inputVal}</option>
+
+                                    )
+                                })}
+                            </Form.Select>
+                        </Col>
+
+                        <Col className='mt-3 mb-3' xs={10} sm={6} md={4} lg={2}>
+                            <Form.Select aria-label="Default select example">
+                                <option>Select Earings</option>
+                                {Earing.map((inputVal, index) => {
+                                    return (
+                                        <option key={index} value={inputVal}>{inputVal}</option>
+
+                                    )
+                                })}
+                            </Form.Select>
+                        </Col>
+
+                        <Col className='mt-3 mb-3' xs={10} sm={6} md={4} lg={2}>
+                            <Form.Select aria-label="Default select example">
+                                <option>Select Hand</option>
+                                {Hand.map((inputVal, index) => {
+                                    return (
+                                        <option key={index} value={inputVal}>{inputVal}</option>
+
+                                    )
+                                })}
+                            </Form.Select>
+                        </Col>
+
+                        <Col className='mt-3 mb-3' xs={10} sm={6} md={4} lg={2}>
+                            <Form.Select aria-label="Default select example">
+                                <option>Select Head</option>
+                                {Head.map((inputVal, index) => {
+                                    return (
+                                        <option key={index} value={inputVal}>{inputVal}</option>
+
+                                    )
+                                })}
+                            </Form.Select>
+                        </Col>
+
+                        <Col className='mt-3 mb-3' xs={10} sm={6} md={4} lg={2}>
+                            <Form.Select aria-label="Default select example">
+                                <option>Select Wing</option>
+                                {Wing.map((inputVal, index) => {
+                                    return (
+                                        <option key={index} value={inputVal}>{inputVal}</option>
+
+                                    )
+                                })}
+                            </Form.Select>
+                        </Col>
+
+                    </Row>
+                    <Row className='justify-content-between mt-5'>
+                        <Col sm={6}>
+                            <div className='my-woas-header-small-market'  >APAs: 8888/8888</div>
+
+                        </Col>
+                        <Col sm={5} md={3} lg={2} className='filter-dropdown' >
+                            <Dropdown>
+                                <Dropdown.Toggle variant="" className='drop-down' id="dropdown-basic">
+                                   Sorting
+                                </Dropdown.Toggle>
+
+                                <Dropdown.Menu>
+                                    <Dropdown.Item onClick={sortPriceLow}>Highest Price</Dropdown.Item>
+                                    <Dropdown.Item  onClick={sortPriceHigh}>Lowest Price</Dropdown.Item>
+                                    <Dropdown.Item  onClick={sortRarityHigh}>Highest Rarity</Dropdown.Item>
+                                    <Dropdown.Item  onClick={sortRarityLow}>Lowest Rarity</Dropdown.Item>
+                                </Dropdown.Menu>
+                            </Dropdown>
+                         
+                        </Col>
+                    </Row>
+                </Zoom>
+                <Row className='justify-content-start my-woa-row-purchased'>
+                    {dataSort.map((woa, index) => {
+                        return (
+                            <Col key={index} lg={2} md={4} sm={6} xs={6} className='mt-4 mb-2'>
+                                <Slide duration={200} direction='up' cascade>
+                                    <div onClick={() => setModalShow(true) || setCurrentWoa(woa)} className="container-img">
+                                        <img src={woa.url} alt="Avatar" className="image" />
+                                        <div className="overlay">
+                                            <div className="text">
+                                                <h6 className='common'>{woa.rarity}</h6>
+                                                <h6 className='buy'>2.39  <span><img width="17px" src='https://partyanimals.xyz/static/media/avax.234db155.svg' alt='' /> Buy</span></h6>
+                                                <h5 className='view-more'>View More</h5>
+                                            </div>
+                                        </div>
+                                        <h5 className='id-woa'>$ {woa.price}</h5>
+                                        <p className='common woa-common'>{woa.rarity}</p>
+                                        <h6 className=' number-woa'>{woa.value} <span><img width="17px" src='https://partyanimals.xyz/static/media/avax.234db155.svg' alt='' /></span></h6>
+
+                                    </div>
+                                </Slide>
+
+                            </Col>
+
+                        )
+                    })}
+
+                </Row>
 
             </Container>
             <Footer />
