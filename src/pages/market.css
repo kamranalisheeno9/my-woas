@@ -251,11 +251,18 @@
     background-color: black;
 
 }
+.filter-dropdown{
+    display: flex;
+    transition: 0.5s all linear;
+}
 .filter-dropdown .drop-down{
     width: 100%;
     color: white;
     border: 1px solid white;
     z-index: 99999999 !important;
+}
+.no-display{
+    display: none;
 }
 
 @keyframes letter {

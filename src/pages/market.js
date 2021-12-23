@@ -68,6 +68,7 @@ const Market = () => {
 
     ]
 
+    const [filterDisplay, setFilterDisplay] = useState(false);
     const [modalShow, setModalShow] = useState(false);
     const [currentWoa, setCurrentWoa] = useState({})
     const [dataSort, setDataSort] = useState(MarketData)
@@ -169,7 +170,7 @@ const Market = () => {
                     </Row>
                 </Zoom>
                 <Zoom duration={200} direction='up' >
-                    <Row className='justify-content-center filter-dropdown'>
+                    <Row  className={filterDisplay ? 'justify-content-center filter-dropdown': 'no-display'}>
                         <Col className='mt-3 mb-3' xs={10} sm={6} md={4} lg={2}>
                             <Form.Select aria-label="Default select example">
                                 <option>Select Rarity</option>
@@ -291,12 +292,15 @@ const Market = () => {
                         </Col>
 
                     </Row>
-                    <Row className='justify-content-between mt-5'>
-                        <Col sm={6}>
-                            <div className='my-woas-header-small-market'  >APAs: 8888/8888</div>
+                    <p style={{float:"right",paddingRight:"9%",cursor:"pointer"}} onClick={()=>setFilterDisplay(!filterDisplay)}>{filterDisplay? 'Hide Filters': "Show Filters"}</p>
 
+                    <Row className='justify-content-between mt-5'>
+                        <Col xs={6}>
+                            <div className='my-woas-header-small-market'  >APAs: 8888/8888</div>
+                            
                         </Col>
-                        <Col sm={5} md={3} lg={2} className='filter-dropdown' >
+                        <Col xs={4} md={3} lg={2} className='filter-dropdown' >
+                          
                             <Dropdown>
                                 <Dropdown.Toggle variant="" className='drop-down' id="dropdown-basic">
                                    Sorting
@@ -327,7 +331,6 @@ const Market = () => {
                                                 <h5 className='view-more'>View More</h5>
                                             </div>
                                         </div>
-                                        <h5 className='id-woa'>$ {woa.price}</h5>
                                         <p className='common woa-common'>{woa.rarity}</p>
                                         <h6 className=' number-woa'>{woa.value} <span><img width="17px" src='https://partyanimals.xyz/static/media/avax.234db155.svg' alt='' /></span></h6>
 
